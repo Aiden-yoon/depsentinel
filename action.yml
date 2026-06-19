@@ -1,4 +1,4 @@
-name: "DepSentinel"
+name: "DepSentinel Security Scanner"
 description: "AI maintainer that scans dependencies for known vulnerabilities and opens a human-readable security report."
 author: "DepSentinel contributors"
 branding:
