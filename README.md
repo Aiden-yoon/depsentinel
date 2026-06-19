@@ -81,6 +81,23 @@ npm run build       # bundle to dist/index.js (committed for the runner)
 > **Note:** GitHub JS actions run `dist/index.js` directly, so `dist/` is
 > committed. Always run `npm run build` before tagging a release.
 
+## Releasing (Marketplace)
+
+CI (`.github/workflows/ci.yml`) typechecks, builds, and fails if `dist/` is
+stale. To cut a release:
+
+```bash
+npm run build && git add dist && git commit -m "build: dist" # if changed
+git tag v0.1.0
+git push origin main --tags
+```
+
+The release workflow then publishes a GitHub Release and moves the floating
+`v0` tag, so consumers can pin `uses: your-org/depsentinel@v0`. To list it on
+the GitHub Marketplace, open the published release and check **"Publish this
+Action to the Marketplace"** (requires the repo to be public with a valid
+`action.yml`).
+
 ## Security & scope
 
 DepSentinel only analyzes the repository it is installed in, against that

@@ -1,0 +1,49 @@
+name: Release
+
+# Tag a release with:  git tag v0.1.0 && git push origin v0.1.0
+# This builds, verifies dist/, publishes a GitHub Release, and moves the
+# floating major tag (e.g. v0) so consumers can pin `uses: your-org/depsentinel@v0`.
+on:
+  push:
+    tags:
+      - "v*.*.*"
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - run: npm ci
+
+      - name: Build & verify dist/
+        run: |
+          npm run build
+          if [ -n "$(git status --porcelain dist)" ]; then
+            echo "::error::dist/ is out of date for this tag. Build and re-tag."
+            exit 1
+          fi
+
+      - name: Move floating major tag
+        run: |
+          VERSION="${GITHUB_REF_NAME}"          # e.g. v0.1.0
+          MAJOR="${VERSION%%.*}"                 # e.g. v0
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git tag -f "$MAJOR" "$VERSION"
+          git push -f origin "$MAJOR"
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          generate_release_notes: true
