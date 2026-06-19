@@ -1,0 +1,59 @@
+name: "DepSentinel"
+description: "AI maintainer that scans dependencies for known vulnerabilities and opens a human-readable security report."
+author: "DepSentinel contributors"
+branding:
+  icon: "shield"
+  color: "blue"
+
+inputs:
+  github-token:
+    description: "Token used to read the repo and open the security report issue. Defaults to the workflow GITHUB_TOKEN."
+    required: false
+    default: ${{ github.token }}
+  openai-api-key:
+    description: "OpenAI API key used for AI impact analysis. Provide via a repository secret."
+    required: true
+  openai-model:
+    description: "OpenAI/Codex model id used for impact analysis."
+    required: false
+    default: "gpt-5-codex"
+  ecosystem:
+    description: "Dependency ecosystem to scan. Currently supported: npm."
+    required: false
+    default: "npm"
+  manifest-path:
+    description: "Path to the manifest (package.json) relative to the repo root."
+    required: false
+    default: "package.json"
+  lockfile-path:
+    description: "Path to the lockfile (package-lock.json) for exact versions. Optional."
+    required: false
+    default: "package-lock.json"
+  severity-threshold:
+    description: "Minimum severity to report: LOW | MODERATE | HIGH | CRITICAL."
+    required: false
+    default: "LOW"
+  open-pr:
+    description: "If 'true', open a merge-ready upgrade PR for advisories that have a fixed version."
+    required: false
+    default: "true"
+  fail-on-finding:
+    description: "If 'true', the action exits non-zero when reportable advisories are found."
+    required: false
+    default: "false"
+  dry-run:
+    description: "If 'true', prints the report to logs instead of opening an issue."
+    required: false
+    default: "false"
+
+outputs:
+  findings-count:
+    description: "Number of advisories that met the severity threshold."
+  issue-url:
+    description: "URL of the created/updated security report issue (empty in dry-run)."
+  pr-url:
+    description: "URL of the created/updated upgrade PR (empty when none was opened)."
+
+runs:
+  using: "node20"
+  main: "dist/index.js"

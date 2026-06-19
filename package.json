@@ -1,0 +1,24 @@
+{
+  "name": "depsentinel",
+  "version": "0.1.0",
+  "private": true,
+  "description": "An AI maintainer that keeps your dependencies safe and up-to-date.",
+  "license": "MIT",
+  "type": "commonjs",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "ncc build src/index.ts -o dist --source-map --minify",
+    "typecheck": "tsc --noEmit",
+    "lint": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@actions/core": "^1.11.1",
+    "@actions/github": "^6.0.0",
+    "openai": "^4.77.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.14.0",
+    "@vercel/ncc": "^0.38.1",
+    "typescript": "^5.5.0"
+  }
+}

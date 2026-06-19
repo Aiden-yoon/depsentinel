@@ -1,0 +1,5 @@
+node_modules/
+*.log
+.DS_Store
+.env
+# NOTE: dist/ is intentionally committed for JS GitHub Actions (the runner uses it directly).

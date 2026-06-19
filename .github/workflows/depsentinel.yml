@@ -1,0 +1,26 @@
+# Example consumer workflow.
+# Drop this into a downstream repo's .github/workflows/ to run DepSentinel weekly.
+name: DepSentinel security scan
+
+on:
+  schedule:
+    - cron: "0 6 * * 1" # every Monday 06:00 UTC
+  workflow_dispatch: {}
+
+permissions:
+  contents: write # required to push the upgrade branch
+  issues: write # required to open/update the security report issue
+  pull-requests: write # required to open the upgrade PR
+
+jobs:
+  scan:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Run DepSentinel
+        uses: your-org/depsentinel@v0 # replace with your published ref/tag
+        with:
+          openai-api-key: ${{ secrets.OPENAI_API_KEY }}
+          severity-threshold: MODERATE
+          fail-on-finding: "false"
