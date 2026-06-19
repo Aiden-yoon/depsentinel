@@ -1,5 +1,14 @@
 # 🛡️ DepSentinel
 
+[![CI](https://github.com/Aiden-yoon/depsentinel/actions/workflows/ci.yml/badge.svg)](https://github.com/Aiden-yoon/depsentinel/actions/workflows/ci.yml)
+[![Release](https://img.shields.io/github/v/release/Aiden-yoon/depsentinel?sort=semver)](https://github.com/Aiden-yoon/depsentinel/releases)
+[![License: MIT](https://img.shields.io/github/license/Aiden-yoon/depsentinel)](LICENSE)
+[![Evidence: 37 real advisories](https://img.shields.io/badge/evidence-37%20real%20advisories-red)](docs/EVIDENCE.md)
+
+> **📊 Proof it works:** against a real fixture, DepSentinel surfaces
+> [**37 live advisories across 4 common dependencies**](docs/EVIDENCE.md) —
+> including critical prototype-pollution and SSRF/credential-leak issues.
+
 > An AI maintainer that keeps your dependencies safe — it scans for known
 > vulnerabilities, explains the **real-world impact** in plain language, and
 > opens a single, always-up-to-date security report issue.
