@@ -70,6 +70,15 @@ jobs:
 | `issue-url` | URL of the created/updated report issue. |
 | `pr-url` | URL of the created/updated upgrade PR. |
 
+## See it work
+
+```bash
+npm run demo   # real OSV scan of the vulnerable demo/ fixture — no keys needed
+```
+
+See [docs/EVIDENCE.md](docs/EVIDENCE.md) for a captured run (37 real advisories
+across 4 dependencies).
+
 ## Develop
 
 ```bash

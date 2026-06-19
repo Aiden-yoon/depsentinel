@@ -1,0 +1,32 @@
+# Self-demo: run DepSentinel against the intentionally-vulnerable fixture in demo/.
+# In dry-run it prints the AI report to the run logs and the job summary —
+# producing shareable evidence without opening issues/PRs on this repo.
+name: DepSentinel self-demo
+
+on:
+  workflow_dispatch: {}
+  push:
+    branches: [main]
+    paths:
+      - "demo/**"
+      - "dist/**"
+      - ".github/workflows/demo.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  demo:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Run DepSentinel (dry-run) against the vulnerable fixture
+        uses: ./
+        with:
+          openai-api-key: ${{ secrets.OPENAI_API_KEY }}
+          manifest-path: demo/package.json
+          lockfile-path: demo/package-lock.json
+          severity-threshold: LOW
+          open-pr: "false"
+          dry-run: "true"

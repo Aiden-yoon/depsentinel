@@ -1,0 +1,43 @@
+# Evidence: DepSentinel detection works (real OSV data)
+
+This is the unedited output of `node scripts/osv-demo.mjs`, which runs the
+real OSV.dev scan against the intentionally-vulnerable [`demo/`](../demo/)
+fixture. It proves the detection core — the hard, verifiable part — works
+against live advisory data. In CI, each advisory below is then sent to Codex
+for impact analysis, and DepSentinel opens a security-report issue plus a
+merge-ready upgrade PR.
+
+> Generated 2026-06-19 against `demo/package.json` (lodash 4.17.4,
+> minimist 1.2.0, axios 0.21.0, node-fetch 2.6.0).
+
+## Result: 37 advisories across 4 dependencies
+
+| Package | Advisories | Highest severity | Fixed version (target) |
+|---------|:---------:|:----------------:|------------------------|
+| `lodash@4.17.4` | 10 | **CRITICAL** (GHSA-jf85-cpcp-j695) | 4.17.21+ |
+| `minimist@1.2.0` | 2 | **CRITICAL** (GHSA-xvch-5gv4-984h) | 1.2.6 |
+| `axios@0.21.0` | 23 | **HIGH** (multiple) | 1.x / 0.31+ |
+| `node-fetch@2.6.0` | 2 | **HIGH** (GHSA-r683-j2x4-v87g) | 2.6.7+ |
+
+Highlights: `lodash` Prototype Pollution (CRITICAL, GHSA-jf85-cpcp-j695),
+`minimist` Prototype Pollution (CRITICAL, GHSA-xvch-5gv4-984h), `axios`
+credential theft & SSRF (HIGH), `node-fetch` secure-header forwarding to
+untrusted sites (HIGH).
+
+## What DepSentinel does with this
+
+1. **Report issue** — one rolling issue grouping all 37 findings by severity,
+   each with an AI plain-language impact analysis and reachability judgment.
+2. **Upgrade PR** — bumps `lodash → ^4.17.21`, `minimist → ^1.2.6`,
+   `axios → ^1.x`, `node-fetch → ^2.6.7`, refreshes the lockfile, and opens a
+   single merge-ready PR.
+
+## Reproduce it yourself
+
+```bash
+node scripts/osv-demo.mjs          # local, no keys needed (OSV is public)
+```
+
+Or run the full pipeline (AI + issue/PR) via the
+[`DepSentinel self-demo`](../.github/workflows/demo.yml) workflow with an
+`OPENAI_API_KEY` secret set.

@@ -1,0 +1,12 @@
+{
+  "name": "depsentinel-demo-vulnerable",
+  "version": "0.0.0",
+  "private": true,
+  "description": "INTENTIONALLY VULNERABLE fixture. Pinned to old versions with known advisories so DepSentinel has something real to find. Do not use in production.",
+  "dependencies": {
+    "lodash": "4.17.4",
+    "minimist": "1.2.0",
+    "axios": "0.21.0",
+    "node-fetch": "2.6.0"
+  }
+}

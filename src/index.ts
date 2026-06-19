@@ -46,6 +46,11 @@ async function run(): Promise<void> {
     const report = buildReport(findings);
     core.setOutput("findings-count", String(findings.length));
 
+    // Render the report into the Actions run summary for shareable evidence.
+    if (process.env.GITHUB_STEP_SUMMARY) {
+      await core.summary.addRaw(report).write();
+    }
+
     if (dryRun) {
       core.info("🧪 dry-run enabled — printing report instead of opening an issue/PR:\n");
       core.info(report);

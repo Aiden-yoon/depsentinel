@@ -9,7 +9,8 @@
   "scripts": {
     "build": "ncc build src/index.ts -o dist --source-map --minify",
     "typecheck": "tsc --noEmit",
-    "lint": "tsc --noEmit"
+    "lint": "tsc --noEmit",
+    "demo": "node scripts/osv-demo.mjs"
   },
   "dependencies": {
     "@actions/core": "^1.11.1",
