@@ -2,7 +2,7 @@ name: Release
 
 # Tag a release with:  git tag v0.1.0 && git push origin v0.1.0
 # This builds, verifies dist/, publishes a GitHub Release, and moves the
-# floating major tag (e.g. v0) so consumers can pin `uses: your-org/depsentinel@v0`.
+# floating major tag (e.g. v0) so consumers can pin `uses: Aiden-yoon/depsentinel@v0`.
 on:
   push:
     tags:

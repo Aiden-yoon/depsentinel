@@ -19,7 +19,7 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Run DepSentinel
-        uses: your-org/depsentinel@v0 # replace with your published ref/tag
+        uses: Aiden-yoon/depsentinel@v0 # replace with your published ref/tag
         with:
           openai-api-key: ${{ secrets.OPENAI_API_KEY }}
           severity-threshold: MODERATE

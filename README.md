@@ -41,7 +41,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: your-org/depsentinel@v0
+      - uses: Aiden-yoon/depsentinel@v0
         with:
           openai-api-key: ${{ secrets.OPENAI_API_KEY }}
           severity-threshold: MODERATE
@@ -102,7 +102,7 @@ git push origin main --tags
 ```
 
 The release workflow then publishes a GitHub Release and moves the floating
-`v0` tag, so consumers can pin `uses: your-org/depsentinel@v0`. To list it on
+`v0` tag, so consumers can pin `uses: Aiden-yoon/depsentinel@v0`. To list it on
 the GitHub Marketplace, open the published release and check **"Publish this
 Action to the Marketplace"** (requires the repo to be public with a valid
 `action.yml`).
