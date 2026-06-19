@@ -11,8 +11,8 @@ inputs:
     required: false
     default: ${{ github.token }}
   openai-api-key:
-    description: "OpenAI API key used for AI impact analysis. Provide via a repository secret."
-    required: true
+    description: "OpenAI API key for AI impact analysis. Optional — without it, DepSentinel falls back to template summaries from advisory data (no AI)."
+    required: false
   openai-model:
     description: "OpenAI/Codex model id used for impact analysis."
     required: false

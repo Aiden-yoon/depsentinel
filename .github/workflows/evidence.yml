@@ -1,0 +1,27 @@
+# One-shot: run the FULL pipeline (issue + upgrade PR) against the vulnerable
+# demo/ fixture, with NO OpenAI key — proving DepSentinel produces real
+# artifacts for free via its template-summary fallback. Run via "Run workflow".
+name: Generate evidence artifacts
+
+on:
+  workflow_dispatch: {}
+
+permissions:
+  contents: write # push the upgrade branch
+  issues: write # open the security report issue
+  pull-requests: write # open the upgrade PR
+
+jobs:
+  evidence:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Run DepSentinel against demo fixture (no API key → template mode)
+        uses: ./
+        with:
+          manifest-path: demo/package.json
+          lockfile-path: demo/package-lock.json
+          severity-threshold: HIGH
+          open-pr: "true"
+          dry-run: "false"

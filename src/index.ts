@@ -1,14 +1,14 @@
 import * as core from "@actions/core";
 import { resolveNpmDeps, resolveFromRoot } from "./deps";
 import { scanNpm, meetsThreshold, type Severity } from "./osv";
-import { assessAdvisory, createClient } from "./ai";
+import { assessAdvisory, createClient, templateAssessment } from "./ai";
 import { buildReport, upsertReportIssue, type Finding } from "./report";
 import { openUpgradePr } from "./pr";
 
 async function run(): Promise<void> {
   try {
     const githubToken = core.getInput("github-token", { required: true });
-    const openaiApiKey = core.getInput("openai-api-key", { required: true });
+    const openaiApiKey = core.getInput("openai-api-key");
     const model = core.getInput("openai-model") || "gpt-5-codex";
     const ecosystem = (core.getInput("ecosystem") || "npm").toLowerCase();
     const manifestPath = resolveFromRoot(core.getInput("manifest-path") || "package.json");
@@ -35,11 +35,17 @@ async function run(): Promise<void> {
 
     const findings: Finding[] = [];
     if (reportable.length > 0) {
-      core.info("🤖 Running AI impact analysis...");
-      const client = createClient(openaiApiKey);
-      for (const advisory of reportable) {
-        const assessment = await assessAdvisory(client, model, advisory);
-        findings.push({ advisory, assessment });
+      if (openaiApiKey) {
+        core.info("🤖 Running AI impact analysis...");
+        const client = createClient(openaiApiKey);
+        for (const advisory of reportable) {
+          findings.push({ advisory, assessment: await assessAdvisory(client, model, advisory) });
+        }
+      } else {
+        core.info("ℹ️ No OpenAI key supplied — using template summaries from advisory data (no AI).");
+        for (const advisory of reportable) {
+          findings.push({ advisory, assessment: templateAssessment(advisory) });
+        }
       }
     }
 

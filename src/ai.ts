@@ -21,6 +21,20 @@ export function createClient(apiKey: string): OpenAI {
   return new OpenAI({ apiKey });
 }
 
+/**
+ * No-AI fallback used when no OpenAI key is supplied. Builds a useful assessment
+ * straight from the advisory data so the Action still opens real issues/PRs.
+ */
+export function templateAssessment(advisory: Advisory): AiAssessment {
+  return {
+    impact: advisory.summary || `${advisory.id} affects ${advisory.packageName}.`,
+    recommendation: advisory.fixedVersions.length
+      ? `Upgrade ${advisory.packageName} to ${advisory.fixedVersions[0]} or later.`
+      : "No fixed version published yet — monitor upstream for a patch.",
+    reachabilityConfidence: "medium",
+  };
+}
+
 export async function assessAdvisory(
   client: OpenAI,
   model: string,
