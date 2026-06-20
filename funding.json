@@ -1,0 +1,76 @@
+{
+  "version": "v1.0.0",
+  "entity": {
+    "type": "individual",
+    "role": "owner",
+    "name": "Aiden Yoon",
+    "email": "windyblue83@gmail.com",
+    "phone": "",
+    "description": "Solo developer and maintainer of DepSentinel, an AI-powered dependency-security GitHub Action.",
+    "webpageUrl": {
+      "url": "https://github.com/Aiden-yoon"
+    }
+  },
+  "projects": [
+    {
+      "guid": "depsentinel",
+      "name": "DepSentinel",
+      "description": "An AI maintainer that scans dependencies for known vulnerabilities (via OSV.dev), explains each one's real-world impact in plain language, and opens merge-ready upgrade PRs. Distributed as a reusable GitHub Action; works for free without an API key. Helps maintainers cope with AI-scale vulnerability triage across the open-source supply chain.",
+      "webpageUrl": {
+        "url": "https://github.com/Aiden-yoon/depsentinel"
+      },
+      "repositoryUrl": {
+        "url": "https://github.com/Aiden-yoon/depsentinel"
+      },
+      "licenses": [
+        "spdx:MIT"
+      ],
+      "tags": [
+        "security",
+        "dependencies",
+        "supply-chain",
+        "github-actions",
+        "vulnerability-scanner",
+        "ai",
+        "devsecops"
+      ]
+    }
+  ],
+  "funding": {
+    "channels": [
+      {
+        "guid": "github-sponsors",
+        "type": "payment-provider",
+        "address": "https://github.com/sponsors/Aiden-yoon",
+        "description": "GitHub Sponsors"
+      }
+    ],
+    "plans": [
+      {
+        "guid": "monthly-supporter",
+        "status": "active",
+        "name": "Monthly supporter",
+        "description": "Supports ongoing maintenance and new ecosystem support (PyPI, Go, crates.io).",
+        "amount": 10,
+        "currency": "USD",
+        "frequency": "monthly",
+        "channels": [
+          "github-sponsors"
+        ]
+      },
+      {
+        "guid": "development-grant",
+        "status": "active",
+        "name": "Development grant",
+        "description": "One-time grant funding to build call-site reachability analysis and expand beyond npm to additional package ecosystems.",
+        "amount": 0,
+        "currency": "USD",
+        "frequency": "one-time",
+        "channels": [
+          "github-sponsors"
+        ]
+      }
+    ],
+    "history": []
+  }
+}
